@@ -49,15 +49,7 @@ export default function SiteHeader() {
           >
             Webinar ↗
           </a>
-          <a
-            href={siteConfig.applyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white text-sm font-semibold px-4 py-2 rounded-md transition-opacity hover:opacity-90 ml-1"
-            style={{ backgroundColor: "#1a2e5a" }}
-          >
-            Apply Now
-          </a>
+          
         </nav>
       </div>
     </header>

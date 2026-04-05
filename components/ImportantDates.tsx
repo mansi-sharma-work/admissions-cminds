@@ -40,7 +40,7 @@ export default function ImportantDates({
             {/* Fixed-width date column keeps labels aligned no matter the date length */}
             <div className="shrink-0 w-28">
               <span
-                className="text-xs font-bold uppercase tracking-wide"
+                className="text-sm font-bold uppercase tracking-wide"
                 style={{ color: item.highlight ? accentColor : "#6b7280" }}
               >
                 {item.date}
@@ -58,7 +58,7 @@ export default function ImportantDates({
                 {item.label}
               </span>
               {item.isWebinar === true && (
-                <span className="text-[11px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold shrink-0 border border-amber-200">
+                <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-semibold shrink-0 border border-amber-200">
                   Webinar
                 </span>
               )}

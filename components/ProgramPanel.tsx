@@ -136,7 +136,7 @@ export default function ProgramPanel({ program }: { program: Program }) {
             Regular deadline: {program.dates[2]?.date ?? "April 10"}
           </p>
           <a
-            href={siteConfig.applyUrl}
+            href={"applyUrl" in program ? (program as typeof msProgram).applyUrl : siteConfig.applyUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full block text-center py-3 rounded-lg font-semibold text-white text-sm transition-opacity hover:opacity-90"
