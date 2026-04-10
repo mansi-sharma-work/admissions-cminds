@@ -47,6 +47,8 @@ export const msProgram = {
     { isoDate: "2026-05-11", label: "Online interviews of shortlisted candidates", highlight: false },
     { isoDate: "2026-05-11",isToDate:"2026-05-12",  label: "In-person interviews at IIT Bombay", highlight: false },
     { isoDate: null,         label: "Admission results declared on COAP (Round 2)", highlight: false },
+    { isoDate: "2026-07-22",  label: "Reporting at IIT Bombay (9:30 am onwards)", istTime: "9:30",highlight: false },
+    { isoDate: "2026-07-27",  label: "Start of semester", istTime: "9:30",highlight: false },
   ],
 }
 
@@ -80,6 +82,10 @@ export const phdProgram = {
     { isoDate: "2026-04-14", istTime: "17:00",label: "Extended deadline (with late fee)", highlight: false },
     { isoDate: "2026-04-26",istTime: "14:00", istTimeEnd: "16:00", label: "Online written test", highlight: false },
     { isoDate: "2026-05-12",isToDate:"2026-05-13",  label: "In-person interviews at IIT Bombay", highlight: false },
+    { isoDate: "2026-07-22",  label: "Reporting at IIT Bombay (9:30 am onwards)", istTime: "9:30",highlight: false },
+    { isoDate: "2026-07-27",  label: "Start of semester", istTime: "9:30",highlight: false },
+
+
   ],
 }
 

@@ -120,14 +120,14 @@ export default function ProgramPanel({ program, onTabSelect }: ProgramPanelProps
                     <span>{step}</span>
                     {step.toLowerCase().includes("online written test") && (
                       <a
-                        href="https://www.minds.iitb.ac.in/site/news-documents/1a91f647-fa68-11ef-87cb-92077df9182f.pdf"
-                        
-                        rel="noopener noreferrer"
-                        className="text-sm underline underline-offset-2 hover:opacity-80 mt-1"
-                        style={{ color: t.accent }}
-                      >
-                        View test syllabus (PDF)
-                      </a>
+                        href="/test-syllabus.pdf"
+  download="Test Syllabus.pdf"
+  rel="noopener noreferrer"
+  className="text-sm underline underline-offset-2 hover:opacity-80 mt-1"
+  style={{ color: t.accent }}
+>
+  View test syllabus (PDF)
+</a>
                     )}
                   </span>
                 </li>
@@ -186,29 +186,7 @@ export default function ProgramPanel({ program, onTabSelect }: ProgramPanelProps
           </div>
 
           {/* ── Switch program CTA ── */}
-          {onTabSelect && (
-            <div className="py-6">
-              <button
-                onClick={() => {
-                  onTabSelect(otherTab)
-                  document.getElementById("programs")?.scrollIntoView({ behavior: "smooth", block: "start" })
-                }}
-                className="group flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70"
-                style={{ color: t.accent }}
-              >
-                <span>View {otherLabel} program</span>
-                <svg
-                  className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </button>
-            </div>
-          )}
+          
 
           {/* ── Apply CTA ── */}
           <div className="flex flex-col items-center gap-3 pt-6">
