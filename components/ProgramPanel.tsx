@@ -78,18 +78,30 @@ export default function ProgramPanel({ program, onTabSelect }: ProgramPanelProps
                 </li>
               ))}
             </ul>
-
+<div className="mt-3 mx-auto text-center">
+      <a
+        href={(program as typeof msProgram).detailsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-sm underline underline-offset-2 hover:opacity-80 mt-1underline underline-offset-2 hover:opacity-75"
+        style={{ color: t.accent }}
+      >
+        Find all details ↗
+      </a>
+    </div>
             {program === msProgram && (
-              <div
-                className="mt-6 p-4 rounded-lg text-sm text-neutral-700 leading-relaxed"
-                style={{ backgroundColor: t.bg }}
-              >
-                <span className="font-semibold" style={{ color: t.accent }}>
-                  GATE exemption:{" "}
-                </span>
-                {(program as typeof msProgram).gateNote}
-              </div>
-            )}
+  <div
+    className="mt-6 p-4 rounded-lg text-sm text-neutral-700 leading-relaxed"
+    style={{ backgroundColor: t.bg }}
+  >
+    <span className="font-semibold" style={{ color: t.accent }}>
+      GATE exemption:{" "}
+    </span>
+    {(program as typeof msProgram).gateNote}
+    
+    
+  </div>
+)}
 
             <p className="mt-5 text-sm text-neutral-500 italic">
               Refer the{" "}

@@ -24,6 +24,7 @@ export const msProgram = {
   programUrl: "https://www.minds.iitb.ac.in/academic-details/msr",
   iitbAdmissionsUrl: "https://www.iitb.ac.in/newacadhome/toMS.jsp",
   gateRequirementsUrl: "https://www.iitb.ac.in/newacadhome/GATE_Requirement.pdf",
+  detailsUrl : "https://acad.iitb.ac.in/admissions/masters/msbyresearch",
 
   eligibility: [
     "B.E / B.Tech / 4-Year BS / MSc in science, statistics, or mathematics with a valid GATE score.",
@@ -62,6 +63,8 @@ export const phdProgram = {
   brochureUrl: "https://acad.iitb.ac.in/files/Ph.D._Brochure_2026-27FIN_0.pdf",
   programUrl: "https://www.minds.iitb.ac.in/academic-details/phd",
   iitbAdmissionsUrl: "https://www.iitb.ac.in/newacadhome/toPhD.jsp",
+  detailsUrl : "https://acad.iitb.ac.in/admissions/research",
+
 
   eligibility: [
     "ME / MTech / MS, or BE / BTech / 4-Year BS / MSc with a valid GATE score.",
