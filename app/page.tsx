@@ -14,8 +14,9 @@ export default function AdmissionsPage() {
       <SiteHeader />
       <main>
         <HeroSection />
+        <UpdatesSection />
         <ProgramTabs />
-<UpdatesSection />
+
         <VideosSection />
         <ContactFooter />
       </main>

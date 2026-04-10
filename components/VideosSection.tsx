@@ -1,8 +1,5 @@
 import { videos } from "@/lib/content"
 
-// Video section — static placeholders until real YouTube IDs land in content.ts.
-// To publish a video: just fill in `youtubeId` for that entry in content.ts.
-// No component changes needed.
 export default function VideosSection() {
   return (
     <section className="bg-neutral-50 py-14 sm:py-20">
@@ -25,14 +22,24 @@ export default function VideosSection() {
   )
 }
 
-function VideoCard({ video }: { video: { id: string; title: string; youtubeId: string } }) {
-  const hasVideo = !!video.youtubeId
+function VideoCard({ 
+  video 
+}: { 
+  video: { 
+    id: string; 
+    title: string; 
+    youtubeId: string; 
+    localSrc?: string;
+    profileUrl?: string;
+  } 
+}) {
+  const hasYoutube = !!video.youtubeId
+  const hasLocal = !!video.localSrc
 
   return (
     <div className="rounded-xl overflow-hidden border border-neutral-200 bg-white card-lift">
-      {/* 16:9 aspect ratio — consistent regardless of content */}
       <div className="aspect-video bg-neutral-100 relative flex items-center justify-center">
-        {hasVideo ? (
+        {hasYoutube ? (
           <iframe
             src={`https://www.youtube.com/embed/${video.youtubeId}`}
             title={video.title}
@@ -41,13 +48,17 @@ function VideoCard({ video }: { video: { id: string; title: string; youtubeId: s
             loading="lazy"
             className="w-full h-full"
           />
+        ) : hasLocal ? (
+          <video
+            src={video.localSrc}
+            controls
+            className="w-full h-full object-cover"
+            preload="metadata"
+          />
         ) : (
-          // Placeholder card — shown until a real YouTubeId is added
           <div className="flex flex-col items-center gap-3 text-neutral-400 px-6 text-center">
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center"
-              style={{ backgroundColor: "rgba(26,46,90,0.07)" }}
-            >
+            <div className="w-12 h-12 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: "rgba(26,46,90,0.07)" }}>
               <svg className="w-6 h-6" fill="none" stroke="#1a2e5a" viewBox="0 0 24 24" opacity="0.4">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                   d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -59,10 +70,22 @@ function VideoCard({ video }: { video: { id: string; title: string; youtubeId: s
           </div>
         )}
       </div>
+      <div className="p-4 border-t border-neutral-100 flex items-center justify-between gap-2">
+  <p className="text-sm font-semibold text-neutral-800 leading-snug">
+    {video.title}
+  </p>
 
-      <div className="p-4 border-t border-neutral-100">
-        <p className="text-sm font-semibold text-neutral-800 leading-snug">{video.title}</p>
-      </div>
+  {video.profileUrl && (
+    <a
+      href={video.profileUrl}
+    
+      rel="noopener noreferrer"
+      className="text-[11px] px-2 py-1 rounded-full border border-neutral-300 text-neutral-600 hover:bg-neutral-100 transition"
+    >
+      Profile
+    </a>
+  )}
+</div>
     </div>
   )
 }

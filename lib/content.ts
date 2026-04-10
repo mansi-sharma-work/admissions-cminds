@@ -1,7 +1,4 @@
-// ─── CONTENT FILE ────────────────────────────────────────────────────────────
-// All page content lives here. Dates, links, text — update this file only.
-// No need to touch any component when content changes.
-// ─────────────────────────────────────────────────────────────────────────────
+
 
 export const siteConfig = {
   name: "C-MInDS",
@@ -20,18 +17,19 @@ export const msProgram = {
   label: "MS by Research",
   fullTitle: "MS by Research in DS & AI",
   color: "navy" as const,
-  duration: "2 years",
+  duration: "1.5\u2013 3  years",
   funding: "Stipend eligible",
-  applyUrl: "https://portal.iitb.ac.in/mtechapp/mtechAdmissionLinks.jsp", 
+  applyUrl: "https://portal.iitb.ac.in/mtechapp/mtechAdmissionLinks.jsp",
   brochureUrl: "https://acad.iitb.ac.in/files/MSBR_BROCHURE_2026_0.pdf",
-  programUrl: "https://www.minds.iitb.ac.in/academics/ms",
+  programUrl: "https://www.minds.iitb.ac.in/academic-details/msr",
   iitbAdmissionsUrl: "https://www.iitb.ac.in/newacadhome/toMS.jsp",
   gateRequirementsUrl: "https://www.iitb.ac.in/newacadhome/GATE_Requirement.pdf",
-  testSyllabusUrl: "https://www.minds.iitb.ac.in/admissions/ms-test-syllabus",
 
   eligibility: [
     "B.E / B.Tech / 4-Year BS / MSc in science, statistics, or mathematics with a valid GATE score.",
     "IIT B.Tech degree holders with CPI \u2265 8.00 are exempted from GATE (limited seats).",
+     "GATE score ≥ 650 required. Eligible disciplines: AE, BM, BT, CE, CH, CS, CY, DA, EC, EE, ES, IN, MA, ME, MN, MT, PH, PI, ST, XE, XL.",
+
   ],
   gateNote: "GATE requirements vary by discipline — check the GATE requirements link for details.",
 
@@ -41,13 +39,14 @@ export const msProgram = {
   ],
 
   dates: [
-    { date: "March 27", label: "Applications open", highlight: false },
-    { date: "April 7", label: "Admissions Webinar at 6 PM", highlight: true, isWebinar: true },
-    { date: "April 10", label: "Closing date for regular applications", highlight: false },
-    { date: "April 16, 5 PM", label: "Extended deadline (with late fee)", highlight: false },
-    { date: "April 26", label: "Online written test", highlight: false },
-    { date: "May 11\u201312", label: "Online interviews of shortlisted candidates", highlight: false },
-    { date: "COAP Round 2", label: "Admission results declared on COAP", highlight: false },
+    { isoDate: "2026-03-27", label: "Applications open", highlight: false },
+    { isoDate: "2026-04-07", istTime: "18:00", label: "Admissions Webinar at 6 PM", highlight: true, isWebinar: true, url: siteConfig.webinarRegisterUrl, cta: "Register" },
+    { isoDate: "2026-04-10", label: "Closing date for regular applications", highlight: true },
+    { isoDate: "2026-04-16", istTime: "17:00",label: "Extended deadline (with late fee)", highlight: false },
+    { isoDate: "2026-04-26", istTime: "14:00", istTimeEnd: "16:00", label: "Online written test", highlight: false },
+    { isoDate: "2026-05-11", label: "Online interviews of shortlisted candidates", highlight: false },
+    { isoDate: "2026-05-11",isToDate:"2026-05-12",  label: "In-person interviews at IIT Bombay", highlight: false },
+    { isoDate: null,         label: "Admission results declared on COAP (Round 2)", highlight: false },
   ],
 }
 
@@ -57,11 +56,10 @@ export const phdProgram = {
   color: "teal" as const,
   duration: "4\u20135 years",
   funding: "Funding available",
-  applyUrl: "https://portal.iitb.ac.in/phdapp/phdAdmissionLinks.jsp", 
+  applyUrl: "https://portal.iitb.ac.in/phdapp/phdAdmissionLinks.jsp",
   brochureUrl: "https://acad.iitb.ac.in/files/Ph.D._Brochure_2026-27FIN_0.pdf",
-  programUrl: "https://www.minds.iitb.ac.in/academics/phd",
+  programUrl: "https://www.minds.iitb.ac.in/academic-details/phd",
   iitbAdmissionsUrl: "https://www.iitb.ac.in/newacadhome/toPhD.jsp",
-  testSyllabusUrl: "https://www.minds.iitb.ac.in/admissions/phd-test-syllabus",
 
   eligibility: [
     "ME / MTech / MS, or BE / BTech / 4-Year BS / MSc with a valid GATE score.",
@@ -76,38 +74,44 @@ export const phdProgram = {
   ],
 
   dates: [
-    { date: "March 27", label: "Applications open", highlight: false },
-    { date: "April 7", label: "Admissions Webinar at 6 PM", highlight: true, isWebinar: true },
-    { date: "April 10", label: "Closing date for regular applications", highlight: false },
-    { date: "April 14, 5 PM", label: "Extended deadline (with late fee)", highlight: false },
-    { date: "April 26", label: "Online written test", highlight: false },
-    { date: "May 13\u201314", label: "In-person interviews at IIT Bombay", highlight: false },
-    { date: "COAP Round 2", label: "Admission results declared on COAP", highlight: false },
+    { isoDate: "2026-03-27", label: "Applications open", highlight: false },
+    { isoDate: "2026-04-07",istTime: "18:00", label: "Admissions Webinar at 6 PM", highlight: true, isWebinar: true, url: siteConfig.webinarRegisterUrl, cta: "Register" },
+    { isoDate: "2026-04-10", label: "Closing date for regular applications", highlight: true },
+    { isoDate: "2026-04-14", istTime: "17:00",label: "Extended deadline (with late fee)", highlight: false },
+    { isoDate: "2026-04-26",istTime: "14:00", istTimeEnd: "16:00", label: "Online written test", highlight: false },
+    { isoDate: "2026-05-12",isToDate:"2026-05-13",  label: "In-person interviews at IIT Bombay", highlight: false },
   ],
 }
 
 export const webinar = {
   date: "Tuesday, April 7, 2026",
   time: "6:00 PM IST",
-  platform: "Microsoft Teams",  
+  platform: "Microsoft Teams",
   eventPageUrl: "https://www.minds.iitb.ac.in/events-details/info-session-on-ms-by-research-phd-in-ds-ai-at-iit-bombay",
   registerUrl: siteConfig.webinarRegisterUrl,
   hasQrCode: false,
 }
 
 export const videos = [
-  { id: "v1", title: "MS by Research \u2014 Program Overview", youtubeId: "" },
-  { id: "v2", title: "Life at C-MInDS, IIT Bombay", youtubeId: "" },
-  { id: "v3", title: "PhD Program \u2014 Research Areas", youtubeId: "" },
-]
-export const updates = [
-  {
-    id: "webinar-apr7",
-    tag: "Webinar",
-    date: "April 7, 2026",
-    text: "Admissions Webinar at 6 PM IST on Microsoft Teams. Join faculty and current students for a live Q&A on both programs.",
-    url: siteConfig.webinarRegisterUrl,
-    cta: "Register →",
+  { 
+    id: "v1", 
+    title: "Pranay Sharma, Core Faculty", 
+    youtubeId: "", 
+    localSrc: "/Admission video.mp4",
+    profileUrl: "https://www.minds.iitb.ac.in/people/core-faculty/pranay-sharma"
   },
-  // Add future updates here — announcements, deadline reminders, result dates, etc.
-]
+  { 
+    id: "v2", 
+    title: "Pratik Jawanpuria, Core Faculty", 
+    youtubeId: "", 
+    localSrc: "/Admission video 2.mp4",
+    profileUrl: "https://www.minds.iitb.ac.in/people/core-faculty/pratik-jawanpuria"
+  },
+  { 
+    id: "v3", 
+    title: "Arjun Bhagoji, Core Faculty", 
+    youtubeId: "", 
+    localSrc: "/Admission video 3.mp4",
+    profileUrl: "https://www.minds.iitb.ac.in/people/core-faculty/arjun-bhagoji"
+  },
+];

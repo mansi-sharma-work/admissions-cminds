@@ -1,6 +1,4 @@
 "use client"
-// Only this component ships client-side JS.
-// Everything else on the page is static HTML — keeps bundle tiny.
 
 import { useState } from "react"
 import ProgramPanel from "./ProgramPanel"
@@ -12,7 +10,6 @@ export default function ProgramTabs() {
   return (
     <section id="programs" className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
 
-      {/* Section heading — same visual weight as the reference site */}
       <div className="mb-8">
         <h2 className="font-display text-2xl sm:text-3xl font-bold mb-2" style={{ color: "#1a2e5a" }}>
           Program Details
@@ -22,30 +19,28 @@ export default function ProgramTabs() {
         </p>
       </div>
 
-      {/* Tab row — underline-style, matching the reference design */}
       <div className="flex border-b border-neutral-200 mb-10">
         <Tab
           label="MS by Research"
-          sublabel="2-year research master's"
+          
           active={active === "ms"}
           activeColor="#1a2e5a"
           onClick={() => setActive("ms")}
         />
         <Tab
           label="PhD"
-          sublabel="Doctoral program"
+          
           active={active === "phd"}
-          activeColor="#0e7c7b"
+          activeColor="#0e4bbf"
           onClick={() => setActive("phd")}
         />
       </div>
 
-      {/* key prop triggers the CSS slideIn animation on every tab switch */}
       <div className="tab-panel" key={active}>
         {active === "ms" ? (
-          <ProgramPanel program={msProgram} />
+          <ProgramPanel program={msProgram} onTabSelect={setActive} />
         ) : (
-          <ProgramPanel program={phdProgram} />
+          <ProgramPanel program={phdProgram} onTabSelect={setActive} />
         )}
       </div>
     </section>
@@ -54,13 +49,13 @@ export default function ProgramTabs() {
 
 function Tab({
   label,
-  sublabel,
+  
   active,
   activeColor,
   onClick,
 }: {
   label: string
-  sublabel: string
+  
   active: boolean
   activeColor: string
   onClick: () => void
@@ -75,7 +70,6 @@ function Tab({
       }}
     >
       <span className="text-sm sm:text-base font-semibold leading-tight">{label}</span>
-      <span className="text-xs text-neutral-400 mt-0.5 hidden sm:block">{sublabel}</span>
     </button>
   )
 }

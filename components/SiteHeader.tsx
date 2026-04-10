@@ -1,56 +1,47 @@
 import Link from "next/link"
 import { siteConfig } from "@/lib/content"
 
-// Sticky header — the Apply button stays visible no matter how far you scroll.
-// Really matters on mobile where people land from a QR code mid-page.
+const mainNav = [
+  { label: "About", href: "https://www.minds.iitb.ac.in/about" },
+  { label: "People", href: "https://www.minds.iitb.ac.in/people/core-faculty" },
+  { label: "Academics", href: "https://www.minds.iitb.ac.in/academics" },
+  { label: "Research", href: "https://www.minds.iitb.ac.in/research" },
+  { label: "Seminars", href: "https://www.minds.iitb.ac.in/seminars/current" },
+  { label: "News & Events", href: "https://www.minds.iitb.ac.in/news/2026" },
+  { label: "Collaboration", href: "https://www.minds.iitb.ac.in/collaboration" },
+]
+
 export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-neutral-200 shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-
-        {/* Wordmark — links back to the main C-MInDS site */}
+      <div className="w-full pl-4 pr-4 sm:pr-6 h-20 flex items-center justify-between gap-4">
         <Link
           href={siteConfig.mainSiteUrl}
-          className="flex items-center gap-3 shrink-0 group"
+          className="flex items-center shrink-0 group"
         >
-          {/* The circle badge mirrors the actual C-MInDS logo shape */}
-          <div
-            className="w-9 h-9 rounded-full flex items-center justify-center text-white text-[8px] font-bold leading-tight text-center transition-opacity group-hover:opacity-85"
-            style={{ backgroundColor: "#1a2e5a" }}
-          >
-            C<br />MInDS
-          </div>
-          <div className="hidden sm:block leading-tight">
-            <p className="text-xs font-bold tracking-wide" style={{ color: "#1a2e5a" }}>
-              C-MInDS
-            </p>
-            <p className="text-[10px] text-neutral-500">IIT Bombay</p>
-          </div>
+          <img
+            src="/logo.svg"
+            alt="C-MInDS logo"
+            className="h-9 sm:h-18 w-auto object-contain transition-transform group-hover:scale-105"
+          />
         </Link>
 
-        {/* Nav + CTA */}
-        <nav className="flex items-center gap-1 sm:gap-3">
-          <a
-            href="#programs"
-            className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors px-2 py-1 rounded hidden md:block"
-          >
-            Programs
-          </a>
-          <a
-            href="#dates"
-            className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors px-2 py-1 rounded hidden md:block"
-          >
-            Dates
-          </a>
-          <a
-            href="#webinar"
-            className="text-sm font-medium px-2 py-1 rounded transition-colors hidden md:block"
-            style={{ color: "#0e7c7b" }}
-          >
-            Webinar ↗
-          </a>
-          
+        {/* Main site nav */}
+        <nav className="hidden lg:flex items-center gap-0.5">
+          {mainNav.map((item) => (
+            <a                                        
+              key={item.href}
+              href={item.href}
+              
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-neutral-600 hover:text-blue-900 hover:bg-blue-50 transition-colors px-3 py-1.5 rounded whitespace-nowrap"
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
+
+        
       </div>
     </header>
   )

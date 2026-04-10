@@ -6,13 +6,15 @@ html {
 }
 
 /* ── Typography ── */
-/* Display font for headings — matches the bold, serif weight of the reference site */
+/* Display font for headings */
 .font-display {
-  font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  font-family: 'Roboto', system-ui, sans-serif;
+  font-weight: 700; /* optional: makes headings stand out */
 }
-/* Body font — clean and readable at all sizes */
+
+/* Body font */
 .font-body {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Roboto', system-ui, sans-serif;
 }
 
 /* ── Tab panel animation ── */
