@@ -29,7 +29,7 @@ export const msProgram = {
   eligibility: [
     "B.E / B.Tech / 4-Year BS / MSc in science, statistics, or mathematics with a valid GATE score.",
     "IIT B.Tech degree holders with CPI \u2265 8.00 are exempted from GATE (limited seats).",
-     "GATE score ≥ 650 required. Eligible disciplines: AE, BM, BT, CE, CH, CS, CY, DA, EC, EE, ES, IN, MA, ME, MN, MT, PH, PI, ST, XE, XL.",
+     "GATE score ≥ 650 required (for general category). Eligible disciplines: AE, BM, BT, CE, CH, CS, CY, DA, EC, EE, ES, IN, MA, ME, MN, MT, PH, PI, ST, XE, XL.",
 
   ],
   gateNote: "GATE requirements vary by discipline — check the GATE requirements link for details.",
