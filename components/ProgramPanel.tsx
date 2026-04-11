@@ -170,21 +170,21 @@ export default function ProgramPanel({ program, onTabSelect }: ProgramPanelProps
                 <ResourceText title="Program Details" subtitle="minds.iitb.ac.in" color={t.accent} />
               </a>
 
-              <button
-                onClick={() => downloadViaProxy(program.brochureUrl)}
-                className="flex items-center gap-3 flex-1 min-w-[140px] p-4 rounded-xl border transition-colors hover:opacity-80 text-left cursor-pointer bg-transparent"
-                style={{ borderColor: t.border, backgroundColor: t.bg }}
-              >
-                <IconBox color={t.iconBg}>
-                  <DownloadIcon stroke={t.accent} />
-                </IconBox>
-                <ResourceText
-                  title="Download Brochure"
-                  subtitle="PDF · 2026 edition"
-                  color={t.accent}
-                />
-              </button>
-
+             <a href={program.brochureUrl}
+  download
+  rel="noopener noreferrer"
+  className="flex items-center gap-3 flex-1 min-w-[140px] p-4 rounded-xl border transition-colors hover:opacity-80 text-left"
+  style={{ borderColor: t.border, backgroundColor: t.bg }}
+>
+  <IconBox color={t.iconBg}>
+    <DownloadIcon stroke={t.accent} />
+  </IconBox>
+  <ResourceText
+    title="Download Brochure"
+    subtitle="PDF · 2026 edition"
+    color={t.accent}
+  />
+</a>
               <a
                 href={program.iitbAdmissionsUrl}
                 
