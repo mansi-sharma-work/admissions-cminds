@@ -14,22 +14,27 @@ type DateEntry = {
   isToDate: string | null
 }
 
+/* -------------------- TIME HELPERS -------------------- */
+
 function toIST(date: Date): Date {
   const utcMs = date.getTime() + date.getTimezoneOffset() * 60_000
   return new Date(utcMs + 5.5 * 60 * 60_000)
 }
 
 function buildTargetUTC(isoDate: string, istTime?: string): Date {
-  const [year, month, day] = isoDate.split("-").map(Number)
-  const [istH, istM] = istTime ? istTime.split(":").map(Number) : [23, 59]
-  const istS = istTime ? 0 : 59
-  return new Date(Date.UTC(year, month - 1, day, istH - 5, istM - 30, istS))
+  const [y, m, d] = isoDate.split("-").map(Number)
+  const [h, min] = istTime ? istTime.split(":").map(Number) : [23, 59]
+  const s = istTime ? 0 : 59
+
+  return new Date(Date.UTC(y, m - 1, d, h - 5, min - 30, s))
 }
 
 function isPast(isoDate: string | null, istTime?: string): boolean {
   if (!isoDate) return false
   return buildTargetUTC(isoDate, istTime).getTime() < Date.now()
 }
+
+/* -------------------- FORMATTING -------------------- */
 
 function formatDate(isoDate: string): string {
   const ist = toIST(new Date(isoDate))
@@ -44,6 +49,7 @@ function formatISTTime(istTime: string, istTimeEnd?: string): string {
     const hour = h % 12 || 12
     return `${hour}:${String(m).padStart(2, "0")} ${suffix}`
   }
+
   return istTimeEnd
     ? `${fmt(istTime)} – ${fmt(istTimeEnd)} IST`
     : `${fmt(istTime)} IST`
@@ -53,21 +59,43 @@ function getCountdown(isoDate: string, istTime?: string): string {
   const diff = buildTargetUTC(isoDate, istTime).getTime() - Date.now()
   if (diff <= 0) return ""
 
-  const totalSeconds = Math.floor(diff / 1000)
-  const seconds = totalSeconds % 60
-  const totalMinutes = Math.floor(totalSeconds / 60)
-  const minutes = totalMinutes % 60
-  const totalHours = Math.floor(totalMinutes / 60)
-  const hours = totalHours % 24
-  const totalDays = Math.floor(totalHours / 24)
-  const weeks = Math.floor(totalDays / 7)
-  const days = totalDays % 7
+  const total = Math.floor(diff / 1000)
+  const s = total % 60
+  const m = Math.floor(total / 60) % 60
+  const h = Math.floor(total / 3600) % 24
+  const d = Math.floor(total / 86400)
+  const w = Math.floor(d / 7)
 
   const pad = (n: number) => String(n).padStart(2, "0")
-  const weekPart = weeks > 0 ? `${pad(weeks)}w ` : ""
+  const wPart = w > 0 ? `${pad(w)}w ` : ""
 
-  return `In ${weekPart}${pad(days)}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+  return `In ${wPart}${pad(d % 7)}d ${pad(h)}:${pad(m)}:${pad(s)}`
 }
+
+/* -------------------- SMART STATUS -------------------- */
+
+function getEventStatus(item: DateEntry): "live" | "soon" | "future" {
+  if (!item.isoDate) return "future"
+
+  const start = buildTargetUTC(item.isoDate, item.istTime).getTime()
+
+  const end = item.istTimeEnd
+    ? buildTargetUTC(item.isoDate, item.istTimeEnd).getTime()
+    : start + 60 * 60 * 1000
+
+  const now = Date.now()
+
+  if (now >= start && now <= end) return "live"
+
+  const diff = start - now
+  const hours = diff / (1000 * 60 * 60)
+
+  if (diff > 0 && hours <= 24) return "soon"
+
+  return "future"
+}
+
+/* -------------------- COMPONENT -------------------- */
 
 export default function ImportantDates({
   dates,
@@ -89,16 +117,36 @@ export default function ImportantDates({
     return () => clearInterval(id)
   }, [])
 
-  const upcoming = mounted
-    ? dates.filter(item => !isPast(item.isoDate, item.istTime))
-    : dates
+  const isValid = (d?: string | null) =>
+  !!d && !isNaN(new Date(d).getTime())
+
+const upcoming = mounted
+  ? dates.filter(item =>
+      isValid(item.isoDate) &&
+      !isPast(item.isoDate, item.istTime)
+    )
+  : dates
+
+  const nextIndex = upcoming.findIndex(
+    item => item.isoDate && !isPast(item.isoDate, item.istTime)
+  )
+
+  function isSmartHighlighted(item: DateEntry, i: number) {
+    const status = getEventStatus(item)
+    if (status === "live") return true
+    if (item.highlight) return true
+    if (i === nextIndex) return true
+    return false
+  }
 
   return (
     <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #e5e7eb" }}>
 
-      {/* Header */}
+      {/* HEADER */}
       <div className="px-6 pt-6 pb-3 text-center">
-        <h3 className="font-display text-xl font-bold text-neutral-800">Important Dates</h3>
+        <h3 className="font-display text-xl font-bold text-neutral-800">
+          Important Dates
+        </h3>
       </div>
 
       {mounted && upcoming.length === 0 ? (
@@ -108,28 +156,55 @@ export default function ImportantDates({
       ) : (
         <div className="divide-y divide-neutral-100">
           {upcoming.map((item, i) => {
-            const countdown = mounted && item.isoDate ? getCountdown(item.isoDate, item.istTime) : null
-            const formatted = item.isoDate ? formatDate(item.isoDate) : null
+            const status = getEventStatus(item)
+            const isHighlighted = isSmartHighlighted(item, i)
+
+            const countdown =
+              mounted && item.isoDate
+                ? getCountdown(item.isoDate, item.istTime)
+                : null
+
+            const formatted = item.isoDate
+              ? formatDate(item.isoDate)
+              : null
 
             return (
               <div
                 key={i}
-                className="flex items-center gap-4 px-6 py-4"
+                className="flex items-center gap-4 px-6 py-4 transition-all"
                 style={
-                  item.highlight
-                    ? { borderLeft: `3px solid ${accentColor}`, backgroundColor: bgColor }
-                    : { borderLeft: "3px solid transparent" }
+                  status === "live"
+                    ? {
+                        borderLeft: "4px solid #ef4444",
+                        backgroundColor: "#fef2f2",
+                        boxShadow: "0 6px 18px rgba(239,68,68,0.15)",
+                      }
+                    : isHighlighted
+                    ? {
+                        borderLeft: `4px solid ${accentColor}`,
+                        backgroundColor: bgColor,
+                        boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
+                      }
+                    : { borderLeft: "4px solid transparent" }
                 }
               >
-                {/* Calendar icon */}
+
+                {/* ICON */}
                 <div
-                  className="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-                  style={{ backgroundColor: item.highlight ? accentColor : "#f3f4f6" }}
+                  className="w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{
+                    backgroundColor:
+                      status === "live"
+                        ? "#ef4444"
+                        : isHighlighted
+                        ? accentColor
+                        : "#f3f4f6",
+                  }}
                 >
                   <svg
                     className="w-4 h-4"
                     fill="none"
-                    stroke={item.highlight ? "white" : "#9ca3af"}
+                    stroke="white"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -141,23 +216,46 @@ export default function ImportantDates({
                   </svg>
                 </div>
 
+                {/* CONTENT */}
                 <div className="flex-1 min-w-0">
+
                   <div className="flex flex-wrap items-center gap-2">
+
                     <span
-                      className="text-sm"
+                      className="text-sm font-medium"
                       style={{
-                        fontWeight: item.highlight ? 600 : 500,
-                        color: item.highlight ? "#111827" : "#374151",
+                        color: "#111827",
+                        fontWeight: isHighlighted ? 700 : 500,
                       }}
                     >
                       {item.label}
                     </span>
 
+                    {status === "live" && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500 text-white animate-pulse">
+                        LIVE
+                      </span>
+                    )}
+
+                    {status === "soon" && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-yellow-500 text-white">
+                        SOON
+                      </span>
+                    )}
+
+                    {status === "future" && isHighlighted && (
+                      <span
+                        className="text-[10px] font-bold px-2 py-0.5 rounded text-white"
+                        style={{ backgroundColor: accentColor }}
+                      >
+                        NEXT
+                      </span>
+                    )}
+
                     {item.url && item.cta && (
                       <a
                         href={item.url}
-                        rel="noopener noreferrer"
-                        className="text-xs font-semibold px-2 py-0.5 rounded transition-opacity hover:opacity-80 text-white"
+                        className="text-xs font-semibold px-2 py-0.5 rounded text-white hover:opacity-80"
                         style={{ backgroundColor: accentColor }}
                       >
                         {item.cta} ↗
@@ -165,33 +263,44 @@ export default function ImportantDates({
                     )}
                   </div>
 
-                  
                   {item.istTime && (
-                    <p className="text-xs mt-0.5" style={{ color: "#6b7280" }}>
+                    <p className="text-xs mt-0.5 text-gray-500">
                       {formatISTTime(item.istTime, item.istTimeEnd)}
                     </p>
                   )}
 
-                  {/* Live countdown */}
                   {countdown && (
-                    <p className="text-xs mt-0.5 font-body" style={{ color: accentColor }}>
+                    <p
+                      className="text-xs mt-0.5 font-medium"
+                      style={{
+                        color:
+                          status === "live" ? "#ef4444" : accentColor,
+                      }}
+                    >
                       {countdown}
                     </p>
                   )}
                 </div>
 
-                {/* Formatted date (IST) on the right */}
+                {/* DATE */}
                 {formatted && (
-  <div className="shrink-0 text-right">
-    <span
-      className="text-xs font-semibold whitespace-nowrap"
-      style={{ color: item.highlight ? accentColor : "#6b7280" }}
-    >
-      {formatted}
-      {item.isToDate && ` – ${formatDate(item.isToDate)}`}
-    </span>
-  </div>
-)}
+                  <div className="text-right shrink-0">
+                    <span
+                      className="text-xs font-semibold whitespace-nowrap"
+                      style={{
+                        color:
+                          status === "live"
+                            ? "#ef4444"
+                            : isHighlighted
+                            ? accentColor
+                            : "#6b7280",
+                      }}
+                    >
+                      {formatted}
+                      {item.isToDate && ` – ${formatDate(item.isToDate)}`}
+                    </span>
+                  </div>
+                )}
               </div>
             )
           })}
