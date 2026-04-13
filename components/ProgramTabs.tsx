@@ -1,11 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import ProgramPanel from "./ProgramPanel"
 import { msProgram, phdProgram } from "@/lib/content"
 
 export default function ProgramTabs() {
   const [active, setActive] = useState<"ms" | "phd">("ms")
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const tab = searchParams.get("tab")
+    if (tab === "ms" || tab === "phd") {
+      setActive(tab)
+    }
+  }, [searchParams])
 
   return (
     <section id="programs" className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
@@ -22,14 +31,12 @@ export default function ProgramTabs() {
       <div className="flex border-b border-neutral-200 mb-10">
         <Tab
           label="MS by Research"
-          
           active={active === "ms"}
           activeColor="#1a2e5a"
           onClick={() => setActive("ms")}
         />
         <Tab
           label="PhD"
-          
           active={active === "phd"}
           activeColor="#0e4bbf"
           onClick={() => setActive("phd")}
@@ -49,13 +56,11 @@ export default function ProgramTabs() {
 
 function Tab({
   label,
-  
   active,
   activeColor,
   onClick,
 }: {
   label: string
-  
   active: boolean
   activeColor: string
   onClick: () => void
