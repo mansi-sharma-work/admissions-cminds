@@ -6,14 +6,12 @@ export default function HeroSection() {
   return (
     <section className="relative overflow-hidden" style={{ minHeight: "600px" }}>
       
-      <Image
-        src="/hero-img.jpg"
-        alt="IIT Bombay campus"
-        fill
-        priority
-        className="object-cover"
-        style={{ zIndex: 0, objectPosition: "50% 20%" }}
-      />
+      <img
+  src="/hero-img.jpg"
+  alt="IIT Bombay campus"
+  className="absolute inset-0 w-full h-full object-cover"
+  style={{ zIndex: 0, objectPosition: "50% 20%" }}
+/>
 
       <div
         className="absolute inset-0"
