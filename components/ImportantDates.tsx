@@ -238,8 +238,8 @@ const upcoming = mounted
                     )}
 
                     {status === "soon" && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-yellow-500 text-white">
-                        SOON
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#0e4bbf] text-white">
+                        NEXT
                       </span>
                     )}
 
