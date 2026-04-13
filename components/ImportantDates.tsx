@@ -66,7 +66,7 @@ function getCountdown(isoDate: string, istTime?: string): string {
   const pad = (n: number) => String(n).padStart(2, "0")
   const weekPart = weeks > 0 ? `${pad(weeks)}w ` : ""
 
-  return `${weekPart}${pad(days)}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
+  return `In ${weekPart}${pad(days)}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
 }
 
 export default function ImportantDates({
