@@ -1,3 +1,4 @@
+"use client"
 import { videos } from "@/lib/content"
 
 export default function VideosSection() {
@@ -40,15 +41,26 @@ function VideoCard({
     <div className="rounded-xl overflow-hidden border border-neutral-200 bg-white card-lift">
       <div className="aspect-video bg-neutral-100 relative flex items-center justify-center">
         {hasYoutube ? (
-          <iframe
-            src={`https://www.youtube.com/embed/${video.youtubeId}`}
-            title={video.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-            className="w-full h-full"
-          />
-        ) : hasLocal ? (
+  <div className="w-full h-full relative group cursor-pointer"
+    onClick={(e) => {
+      const el = e.currentTarget
+      el.innerHTML = `<iframe src="https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1" class="w-full h-full" allow="autoplay; encrypted-media" allowfullscreen />`
+    }}
+  >
+    <img
+      src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+      alt={video.title}
+      className="w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow">
+        <svg className="w-5 h-5 ml-1" fill="#1a2e5a" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+) :hasLocal ? (
           <video
             src={video.localSrc}
             controls

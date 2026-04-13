@@ -103,6 +103,13 @@ export const webinar = {
 }
 
 export const videos = [
+    {
+    id: "webinar",
+    title: "Admissions Webinar 2026 — MS & PhD",
+    youtubeId: "rfbJzsBjc8k",
+    localSrc: undefined,
+    profileUrl: undefined,
+  },
   { 
     id: "v1", 
     title: "Pranay Sharma, Core Faculty", 
