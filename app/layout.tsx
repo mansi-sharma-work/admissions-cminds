@@ -2,13 +2,16 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Admissions 2026–27 | C-MInDS, IIT Bombay",
+  title: "Admissions",
   description:
     "Apply to the MS by Research or PhD programs in Data Science & AI at the Centre for Machine Intelligence and Data Science, IIT Bombay.",
   openGraph: {
     title: "C-MInDS Admissions 2026–27",
     description: "MS & PhD programs in DS & AI at IIT Bombay",
     siteName: "C-MInDS, IIT Bombay",
+  },
+  icons: {
+    icon: "/tabLogo.svg",
   },
 }
 

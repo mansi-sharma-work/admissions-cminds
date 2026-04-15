@@ -1,5 +1,4 @@
-// Server component — no client JS at the root level.
-// ProgramTabs is the only "use client" component on the page.
+"use client"
 
 import SiteHeader from "@/components/SiteHeader"
 import HeroSection from "@/components/HeroSection"

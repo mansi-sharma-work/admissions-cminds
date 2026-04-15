@@ -6,16 +6,15 @@ export default function ContactFooter() {
   return (
     <footer style={{ backgroundColor: "#1a2e5a" }} className="text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-10 ">
 
           {/* Contact */}
           <div>
-            <h3 className="font-display text-base font-bold mb-4 text-white">
+            <h3 className="flex flex-col font-display text-base font-bold mb-4 text-white items-center md:items-start text-center md:text-left">
               Admissions Queries
             </h3>
-            <div className="space-y-3 text-sm" style={{ color: "#bfdbfe" }}>
-              <p className="flex items-center gap-2">
-                <svg className="w-4 h-4 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="space-y-3 text-sm items-center text-center" style={{ color: "#bfdbfe" }}>
+<p className="flex justify-center md:justify-start items-center gap-2">                <svg className="w-4 h-4 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -26,21 +25,21 @@ export default function ContactFooter() {
                   {siteConfig.email}
                 </a>
               </p>
-              <p className="flex items-center gap-2">
-                <svg className="w-4 h-4 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<p className="flex justify-center md:justify-start items-center gap-2">
+                  <svg className="w-4 h-4 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 {siteConfig.phone}
               </p>
-              <p className="text-xs" style={{ color: "#93c5fd" }}>Mon–Fri, 9 AM – 5 PM IST</p>
+              <p className="flex justify-center md:justify-start items-center gap-2" style={{ color: "#93c5fd" }}>Mon–Fri, 9 AM – 5 PM IST</p>
             </div>
           </div>
 
           
 
           {/* Programs + brochures + social */}
-          <div>
+          <div className="flex flex-col items-center md:items-end text-center md:text-right">
             <h3 className="font-display text-base font-bold mb-4 text-white">Programs & Social</h3>
             <ul className="space-y-2 text-sm" style={{ color: "#bfdbfe" }}>
               {[
@@ -63,8 +62,8 @@ export default function ContactFooter() {
             </ul>
 
             {/* Social icons */}
-            <div className="flex gap-4 mt-4">
-              <a href="https://www.linkedin.com/company/cminds-iitb" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+<div className="flex flex-row items-start md:items-end space-x-4 mt-2">
+                <a href="https://www.linkedin.com/company/cminds-iitb" target="_blank" rel="noopener noreferrer" className="hover:text-white">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.25 19h-3v-9h3v9zm-1.5-10.25c-.97 0-1.75-.78-1.75-1.75s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.75-1.75 1.75zm12.75 10.25h-3v-4.5c0-1.07-.02-2.44-1.5-2.44-1.5 0-1.73 1.17-1.73 2.38v4.56h-3v-9h2.88v1.23h.04c.4-.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59v5.74z"/>
                 </svg>
