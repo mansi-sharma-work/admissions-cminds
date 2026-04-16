@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import SiteHeader from "@/components/SiteHeader"
 import HeroSection from "@/components/HeroSection"
 import ProgramTabs from "@/components/ProgramTabs"
@@ -11,11 +12,12 @@ export default function AdmissionsPage() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main className="flex flex-col">
         <HeroSection />
         <UpdatesSection />
-        <ProgramTabs />
-
+        <Suspense fallback={null}>
+          <ProgramTabs />
+        </Suspense>
         <VideosSection />
         <ContactFooter />
       </main>

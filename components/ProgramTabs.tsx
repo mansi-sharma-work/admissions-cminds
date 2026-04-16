@@ -1,33 +1,47 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import ProgramPanel from "./ProgramPanel"
 import { msProgram, phdProgram } from "@/lib/content"
 
+type TabType = "ms" | "phd"
+
 export default function ProgramTabs() {
-  const [active, setActive] = useState<"ms" | "phd">("ms")
   const searchParams = useSearchParams()
 
+  // default safe state
+  const [active, setActive] = useState<TabType>("ms")
+
+  // sync URL → state
   useEffect(() => {
     const tab = searchParams.get("tab")
+
     if (tab === "ms" || tab === "phd") {
       setActive(tab)
     }
   }, [searchParams])
 
   return (
-    <section id="programs" className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20">
-
+    <section
+      id="programs"
+      className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20"
+    >
+      {/* Header */}
       <div className="mb-8">
-        <h2 className="font-display text-2xl sm:text-3xl font-bold mb-2" style={{ color: "#1a2e5a" }}>
+        <h2
+          className="font-display text-2xl sm:text-3xl font-bold mb-2"
+          style={{ color: "#1a2e5a" }}
+        >
           Program Details
         </h2>
+
         <p className="text-neutral-500 text-sm">
           Select a program to see eligibility, process, and important dates.
         </p>
       </div>
 
+      {/* Tabs */}
       <div className="flex border-b border-neutral-200 mb-10">
         <Tab
           label="MS by Research"
@@ -43,16 +57,25 @@ export default function ProgramTabs() {
         />
       </div>
 
-      <div className="tab-panel" key={active}>
+      {/* Panel */}
+      <div className="tab-panel">
         {active === "ms" ? (
-          <ProgramPanel program={msProgram} onTabSelect={setActive} />
+          <ProgramPanel
+            program={msProgram}
+            onTabSelect={setActive}
+          />
         ) : (
-          <ProgramPanel program={phdProgram} onTabSelect={setActive} />
+          <ProgramPanel
+            program={phdProgram}
+            onTabSelect={setActive}
+          />
         )}
       </div>
     </section>
   )
 }
+
+/* ---------------- TAB ---------------- */
 
 function Tab({
   label,
@@ -74,7 +97,9 @@ function Tab({
         color: active ? activeColor : "#6b7280",
       }}
     >
-      <span className="text-sm sm:text-base font-semibold leading-tight">{label}</span>
+      <span className="text-sm sm:text-base font-semibold leading-tight">
+        {label}
+      </span>
     </button>
   )
 }
