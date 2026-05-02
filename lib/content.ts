@@ -1,4 +1,23 @@
-
+export const shortlists = {
+  ms: {
+    label: "MS by Research",
+    ids: ["B271856111","B274387137","B268652430","B266232210","B268016132","B264791180","B266969866","B275198198","B272003196","B268958535","B269452164","B273957210","B274788125","B270051208","B265247164","B269439497","B274507214","B273478264","B271777200","B268989202","B267019206","B274361447","B268492476","B266528214","B271367490","B271566112","B268960211","B276842106","B271145101","B270906104","B270773143","B272181159","B271179948","B267334119","B264893356","B270479137","B276462606","B273258334","B272428209","B271801203","B265430137","B268877139","B267044572","B273005786","B272140152","B267767125","B274873158","B265132197","B271776134","B266786304","B266864281","B267296266","B273100110","B272467194","B265069944","B271545167","B266995170","B274871155","B272580155","B266143378","B265973154","B271519909","B267076624","B272546689","B267330957","B267665164","B265911551","B273200140","B267298151","B272606100","B268353202","B271633121","B272585626","B272081198","B274471669","B274427166","B274543914","B273717395","B270279736","B274517137"],
+  },
+  phd: {
+    label: "PhD",
+    ids: ["PW4729487","PW0507703","PW1937205","PW2291641","PW0340207","PW2890776","PW1318336","PW5332162","PW6434542","PW2043204","PW4567631","PW2350183","PW3847228","PW1825700","PW5758184","PW5446824","PW4850528","PW4300476","PW5719512","PW5841872","PW2788118","PW0131144","PW1217111","PW3576925","PW5263938","PW2510180","PW5252205","PW61611921","PW5155168","PW22281824","PW3276181","PW02191921","PW4611653","PW4960151","PW1033196","PW4753201","PW12751591","PW2213532","PW1539781","PW3921219","PW0669527","PW5025448","PW25581192","PW2463167","PW4317139","PW17371841","PW1566305","PW6137781","PW44631322","PW6343439","PW1444983","PW4424158","PW2794151","PW1302246","PW3359883","PW6468968"],
+  },
+  foreign: {
+  label: "Foreign National",
+  ids: [
+    { id: "826240", via: "IIT Bombay application" },
+    { id: "26-91-000200602", via: "Study-in-India portal" },
+    { id: "26-91-000203915", via: "Study-in-India portal" },
+    { id: "26-977-000200840", via: "Study-in-India portal" },
+    { id: "26-977-000210510", via: "Study-in-India portal" },
+  ],
+},
+}
 
 export const siteConfig = {
   name: "C-MInDS",
@@ -46,8 +65,7 @@ export const msProgram = {
     { isoDate: "2026-04-16", istTime: "17:00",label: "Extended deadline (for MS)", highlight: false },
     { isoDate: "2026-04-26", istTime: "14:00", istTimeEnd: "16:00", label: "Online written test", highlight: false },
     { isoDate: "2026-05-11", label: "Online interviews of shortlisted candidates", highlight: false },
-    { isoDate: "2026-05-11",isToDate:"2026-05-12",  label: "In-person interviews at IIT Bombay", highlight: false },
-    { isoDate: null,         label: "Admission results declared on COAP (Round 2)", highlight: false },
+{ isoDate: "2026-05-24", isToDate: "2026-05-27", label: "Selection results by IITB on COAP (Round 3)", highlight: false },    { isoDate: null,         label: "Admission results declared on COAP (Round 2)", highlight: false },
     { isoDate: "2026-07-22",  label: "Reporting at IIT Bombay (9:30 am onwards)", istTime: "9:30",highlight: false },
     { isoDate: "2026-07-27",  label: "Start of semester", istTime: "9:30",highlight: false },
   ],

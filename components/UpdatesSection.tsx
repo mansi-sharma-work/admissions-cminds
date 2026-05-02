@@ -1,7 +1,8 @@
 "use client"
 
 import { msProgram, phdProgram } from "@/lib/content"
-
+import { useState, useEffect } from "react"
+import { shortlists } from "@/lib/content"
 /* ---------------- DATE HELPERS ---------------- */
 
 const parseDate = (iso: string) => new Date(`${iso}T00:00:00`)
@@ -47,6 +48,9 @@ function getAllDates() {
 /* ---------------- COMPONENT ---------------- */
 
 export default function UpdatesSection() {
+  const [msOpen, setMsOpen] = useState(false)
+  const [phdOpen, setPhdOpen] = useState(false)
+  const [foreignOpen, setForeignOpen] = useState(false)
   const all = getAllDates()
 
   // attach safe date
@@ -79,7 +83,7 @@ export default function UpdatesSection() {
         parseDate(b.effectiveDate!).getTime()
     )[0]
 
-  if (!msUpcoming && !phdUpcoming) return null
+  
     const firstUpcoming = msUpcoming && phdUpcoming
   ? parseDate(msUpcoming.effectiveDate!).getTime() <= parseDate(phdUpcoming.effectiveDate!).getTime()
     ? { first: msUpcoming, firstLabel: 'MS', second: phdUpcoming, secondLabel: 'PhD' }
@@ -135,24 +139,77 @@ return (
 
       
       {/* STATIC WEBINAR — always at bottom with past tag */}
-      <div className="flex justify-between items-center gap-4 border-t border-white/20 pt-4">
-  <div>
-    <div className="flex items-center gap-3">
-      <p className="text-white font-semibold">Admissions Webinar</p>
       
-        <a href="https://youtu.be/rfbJzsBjc8k?si=4tU8ibqXedkCye2s"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-xs font-semibold px-3 py-0.5 rounded-full bg-white/20 text-white whitespace-nowrap hover:bg-white/30"
-      >
-        Watch ↗
-      </a>
-    </div>
-    <p className="text-white/60 text-xs mt-0.5">MS & PhD</p>
+{/* SHORTLISTS */}
+<div className="border-t border-white/20 pt-4 flex flex-col gap-3">
+  <p className="text-white text-sm font-bold">Interview Shortlists</p>
+  <p className="text-white/50 text-xs -mt-2">Candidates have been notified on their registered email address.</p>
+
+  {/* MS Shortlist */}
+  <div className="rounded-xl border border-white/20 overflow-hidden">
+    <button
+      onClick={() => setMsOpen(o => !o)}
+      className="w-full flex justify-between items-center px-4 py-3 text-left hover:bg-white/5 transition"
+    >
+      <div>
+        <p className="text-white text-sm font-semibold">MS by Research — Shortlisted Candidates</p>
+      </div>
+      <span className="text-white/60 text-lg">{msOpen ? '−' : '+'}</span>
+    </button>
+    {msOpen && (
+      <div className="px-4 pb-4 flex flex-wrap gap-2">
+        {[...shortlists.ms.ids].sort().map(id => (
+          <span key={id} className="text-xs bg-white/10 text-white/80 px-2 py-0.5 rounded font-mono">
+            {id}
+          </span>
+        ))}
+      </div>
+    )}
   </div>
-  <span className="text-xs bg-white/20 text-white/60 px-3 py-1 rounded-full font-bold whitespace-nowrap">
-    Past
-  </span>
+
+  {/* PhD Shortlist */}
+  <div className="rounded-xl border border-white/20 overflow-hidden">
+    <button
+      onClick={() => setPhdOpen(o => !o)}
+      className="w-full flex justify-between items-center px-4 py-3 text-left hover:bg-white/5 transition"
+    >
+      <div>
+        <p className="text-white text-sm font-semibold">PhD — Shortlisted Candidates</p>
+      </div>
+      <span className="text-white/60 text-lg">{phdOpen ? '−' : '+'}</span>
+    </button>
+    {phdOpen && (
+      <div className="px-4 pb-4 flex flex-wrap gap-2">
+        {[...shortlists.phd.ids].sort().map(id => (
+          <span key={id} className="text-xs bg-white/10 text-white/80 px-2 py-0.5 rounded font-mono">
+            {id}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+  {/* Foreign National Shortlist */}
+<div className="rounded-xl border border-white/20 overflow-hidden">
+  <button
+    onClick={() => setForeignOpen(o => !o)}
+    className="w-full flex justify-between items-center px-4 py-3 text-left hover:bg-white/5 transition"
+  >
+    <div>
+      <p className="text-white text-sm font-semibold">Foreign National — Shortlisted Candidates</p>
+    </div>
+    <span className="text-white/60 text-lg">{foreignOpen ? '−' : '+'}</span>
+  </button>
+  {foreignOpen && (
+    <div className="px-4 pb-4 flex flex-col gap-1.5">
+      {shortlists.foreign.ids.map(({ id, via }) => (
+        <div key={id} className="flex items-center justify-between">
+          <span className="text-xs bg-white/10 text-white/80 px-2 py-0.5 rounded font-mono">{id}</span>
+          <span className="text-xs text-white/50">via {via}</span>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
 </div>
 
     </div>
